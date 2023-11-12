@@ -43,8 +43,10 @@ async function fetchProjects() {
             figure.appendChild(figcaption);
 
             fragmentProjects.appendChild(figure);
-            gallery.appendChild(fragmentProjects);
         });
+
+        // Ajout du fragment à la galerie après la boucle
+        gallery.appendChild(fragmentProjects);
 
         // Création d'un bouton de filtre pour chaque catégorie
         categoryNames.forEach(category => {
