@@ -3,6 +3,10 @@
    License: none (public domain)
 */
 
+.hidden {
+	display: none;
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -125,6 +129,34 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+
+#filters {
+	display: flex;
+	justify-content: center;
+	gap: 0.6em;
+	margin: 3em 0;
+}
+
+.filter {
+	color: #1D6154;
+	background: white;
+	text-align: center;
+	font-family: Syne;
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	padding: 0.5em;
+	min-width: 100px;
+	border-radius: 3.75rem;
+	border: 1px solid #1D6154;
+}
+
+.filter-active {
+	background: #1D6154;
+	color: white;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
