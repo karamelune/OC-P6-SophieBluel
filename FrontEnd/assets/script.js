@@ -1,6 +1,23 @@
 // Récupération des éléments du DOM
 const portfolio = document.getElementById('portfolio');
 const gallery = document.querySelector('.gallery');
+const loginBtn = document.querySelector('#login-btn');
+
+// Vérification de la présence d'un token dans le localStorage
+const token = localStorage.getItem('token');
+if (token) {
+    // Si un token est présent, changement du texte du bouton et ajout d'un écouteur d'événements
+    loginBtn.textContent = 'logout';
+    loginBtn.href = '#';
+    loginBtn.addEventListener('click', function() {
+        // Suppression du token du localStorage et rafraîchissement de la page
+        localStorage.removeItem('token');
+        location.reload();
+    });
+
+    // Affichage des modales d'administration
+    //displayAdminModals();
+}
 
 // Ensemble catégories uniques et carte correspondance catégorie-identifiant
 const categoryNames = new Set();

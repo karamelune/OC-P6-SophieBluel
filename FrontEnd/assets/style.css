@@ -51,6 +51,11 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
 body {
 	max-width: 1140px;
 	margin:auto;
@@ -169,36 +174,62 @@ li:hover {
 	width: 100%;
 
 }
-#contact {
+#contact,
+#login {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
-#contact > * {
+
+#login {
+	width: 30%;
+	margin-top: 150px;
+}
+
+#contact > *,
+#login > * {
 	text-align: center;
 
 }
-#contact h2{
+#contact h2,
+#login h2{
 	margin-bottom: 20px;
 }
-#contact form {
+#contact form,
+#login form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+#login form a {
+	text-align: center;
+	text-decoration: underline;
+}
+
+#contact input,
+#login input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+
+#contact label,
+#login label {
 	margin: 2em 0 1em 0;
 }
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+/* Message d'erreur login incorrect */
+#login .error {
+	color: red;
+	font-weight: 700;
+	text-align: center;
+	margin-top: 2em;
 }
 
 input[type="submit"]{
@@ -212,9 +243,19 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
+input[type="submit"]:hover{
+	background-color: #0E2F28;
+}
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
 }
 
+#footer-login {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 92%;
+}
