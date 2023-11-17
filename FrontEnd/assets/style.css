@@ -3,23 +3,87 @@
    License: none (public domain)
 */
 
-.hidden {
-	display: none;
-}
-
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -28,21 +92,34 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
 	display: block;
 }
 body {
 	line-height: 1;
 }
-ol, ul {
+ol,
+ul {
 	list-style: none;
 }
-blockquote, q {
+blockquote,
+q {
 	quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
 	content: '';
 	content: none;
 }
@@ -51,6 +128,23 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
+
+.hidden {
+	display: none;
+}
+
+.block {
+	display: block;
+}
+
+.flex {
+	display: flex;
+}
+
+img[src=''] {
+	display: none;
+}
+
 a {
 	text-decoration: none;
 	color: inherit;
@@ -58,46 +152,44 @@ a {
 
 body {
 	max-width: 1140px;
-	margin:auto;
-	font-family: 'Work Sans' ;
+	margin: auto;
+	font-family: 'Work Sans';
 	font-size: 14px;
 }
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0;
 }
 section {
-	margin: 50px 0
+	margin: 50px 0;
 }
 
-h1{
+h1 {
 	display: flex;
 	flex-direction: column;
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #b1663c;
 }
 
 h1 > span {
 	font-family: 'Work Sans';
-	font-size:10px;
+	font-size: 10px;
 	letter-spacing: 0.1em;
-;
 }
 
-h2{
+h2 {
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154
+	color: #1d6154;
 }
 nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
 nav li {
 	padding: 0 10px;
@@ -105,14 +197,15 @@ nav li {
 }
 
 li:hover {
-	color: #B1663C;
+	color: #b1663c;
 }
+
 #introduction {
 	display: flex;
 	align-items: center;
 }
 #introduction figure {
-	flex: 1
+	flex: 1;
 }
 #introduction img {
 	display: block;
@@ -121,7 +214,7 @@ li:hover {
 }
 
 #introduction article {
-	flex: 1
+	flex: 1;
 }
 #introduction h2 {
 	margin-bottom: 1em;
@@ -143,7 +236,7 @@ li:hover {
 }
 
 .filter {
-	color: #1D6154;
+	color: #1d6154;
 	background: white;
 	text-align: center;
 	font-family: Syne;
@@ -154,11 +247,11 @@ li:hover {
 	padding: 0.5em;
 	min-width: 100px;
 	border-radius: 3.75rem;
-	border: 1px solid #1D6154;
+	border: 1px solid #1d6154;
 }
 
 .filter-active {
-	background: #1D6154;
+	background: #1d6154;
 	color: white;
 }
 
@@ -172,7 +265,6 @@ li:hover {
 
 .gallery img {
 	width: 100%;
-
 }
 #contact,
 #login {
@@ -188,16 +280,16 @@ li:hover {
 #contact > *,
 #login > * {
 	text-align: center;
-
 }
 #contact h2,
-#login h2{
+#login h2 {
 	margin-bottom: 20px;
 }
 #contact form,
-#login form {
+#login form,
+.addPhotoModale-content form {
 	text-align: left;
-	margin-top:30px;
+	margin-top: 30px;
 	display: flex;
 	flex-direction: column;
 }
@@ -208,7 +300,9 @@ li:hover {
 }
 
 #contact input,
-#login input {
+#login input,
+.editModale-content input,
+.addPhotoModale-content input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
@@ -216,7 +310,8 @@ li:hover {
 }
 
 #contact label,
-#login label {
+#login label,
+.addPhotoModale-content label {
 	margin: 2em 0 1em 0;
 }
 #contact textarea {
@@ -232,25 +327,26 @@ li:hover {
 	margin-top: 2em;
 }
 
-input[type="submit"]{
+input[type='submit'] {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
-	background-color: #1D6154;
-	margin : 2em auto ;
+	background-color: #1d6154;
+	margin: 2em auto;
 	width: 180px;
 	text-align: center;
-	border-radius: 60px ;
+	border-radius: 60px;
+	cursor: pointer;
 }
 
-input[type="submit"]:hover{
-	background-color: #0E2F28;
+input[type='submit']:hover {
+	background-color: #0e2f28;
 }
 
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin: 2em;
 }
 
 #footer-login {
@@ -258,4 +354,307 @@ footer nav ul {
 	bottom: 0;
 	left: 0;
 	width: 92%;
+}
+
+/***** ADMIN *****/
+
+.gallery img {
+	width: 100%;
+}
+
+#contact,
+#login {
+	width: 50%;
+	margin: auto;
+}
+
+#login {
+	width: 30%;
+	margin-top: 150px;
+}
+
+#contact > *,
+#login > * {
+	text-align: center;
+}
+
+#contact h2,
+#login h2 {
+	margin-bottom: 20px;
+}
+
+#contact form,
+#login form,
+.addPhotoModale-content form {
+	text-align: left;
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#login form a {
+	text-align: center;
+	text-decoration: underline;
+}
+
+#contact input,
+#login input,
+.editModale-content input,
+.addPhotoModale-content input,
+.addPhotoModale-content form select {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#contact label,
+#login label,
+.addPhotoModale-content label {
+	margin: 2em 0 1em 0;
+}
+
+#contact textarea,
+.addPhotoModale-content textarea {
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+/* Message d'erreur login incorrect */
+#login .error {
+	color: red;
+	font-weight: 700;
+	text-align: center;
+	margin-top: 2em;
+}
+
+input[type='submit'] {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1d6154;
+	margin: 2em auto;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px;
+	cursor: pointer;
+}
+
+input[type='submit']:hover {
+	background-color: #0e2f28;
+}
+
+footer nav ul {
+	display: flex;
+	justify-content: flex-end;
+	margin: 2em;
+}
+
+#adminBanner {
+	width: 100vw;
+	height: 60px;
+	margin-left: calc(-1 * ((100vw - 100%) / 2));
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	background-color: black;
+	color: white;
+}
+
+#adminBanner i {
+	color: white;
+}
+
+#editDiv {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 2em;
+	margin: 6em 0;
+}
+
+#editDiv h2 {
+	margin-bottom: 0;
+}
+
+#editDiv p {
+	cursor: pointer;
+}
+
+#addPhotoModaleNavigation {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.close,
+#addPhotoModaleNavigation i {
+	cursor: pointer;
+}
+
+#addPhotoModaleNavigation i {
+	font-size: 18px;
+	margin: 20px 0 10px 30px;
+}
+
+.close {
+	font-size: 24px;
+	margin: 20px 30px 10px 0;
+	align-self: flex-end;
+}
+
+#editModale,
+#addPhotoModale {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 100;
+}
+
+.editModale-content,
+.addPhotoModale-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 50%;
+	min-width: 700px;
+	max-width: 750px;
+	background-color: white;
+	border-radius: 10px;
+	z-index: 101;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#addPhotoModale {
+	z-index: 102;
+}
+
+.editModale-content h3,
+.addPhotoModale-content h3 {
+	font-size: 26px;
+}
+
+#modaleGallery {
+	max-width: 80%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 12px;
+	grid-row-gap: 25px;
+	margin: 50px 0;
+	overflow-y: auto;
+	max-height: 500px;
+}
+
+#modaleGallery figure {
+	position: relative;
+	width: 100px;
+}
+
+#modaleGallery img {
+	max-width: 100%;
+	height: auto;
+}
+
+#trashCan {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 6px;
+	right: 6px;
+	height: 18px;
+	width: 18px;
+	border-radius: 2px;
+	background-color: black;
+	cursor: pointer;
+}
+
+#trashCan i {
+	color: white;
+	font-size: 11px;
+}
+
+hr {
+	border: none;
+	color: #b3b3b3;
+	width: 550px;
+	height: 0px;
+	border: 1px solid #b3b3b3;
+}
+
+.editModale-content input {
+	font-size: 14px;
+	padding: 10px;
+	width: 30%;
+	margin: 45px 0;
+}
+
+.addPhotoModale-content form {
+	width: 100%;
+	max-width: 80%;
+}
+
+#formImageInput {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	min-height: 150px;
+	padding: 20px 0;
+	gap: 15px;
+	border-radius: 3px;
+	background-color: #e8f1f6;
+}
+
+#formImageInput img {
+	width: auto;
+	height: 100%;
+	position: absolute;
+	top: 0;
+}
+
+#formImageInput i {
+	font-size: 76px;
+	color: #b9c5cc;
+}
+
+#formImageInput input {
+	display: none;
+}
+
+#formImageInput label {
+	color: #306685;
+	background-color: #cbd6dc;
+	padding: 10px 30px;
+	border-radius: 50px;
+	margin: 0;
+	cursor: pointer;
+}
+
+#formImageInput p {
+	color: #444444;
+	font-size: 10px;
+}
+
+.addPhotoModale-content hr {
+	margin-top: 45px;
+}
+
+.addPhotoModale-content form input[type='submit'] {
+	width: 50%;
+	font-size: 14px;
+	padding: 10px;
+	margin: 45px auto;
+}
+
+.addPhotoModale-content form input[type='submit']:disabled {
+	background-color: #a7a7a7;
+	cursor: not-allowed;
 }
