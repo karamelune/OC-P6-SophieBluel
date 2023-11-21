@@ -9,6 +9,7 @@ const [loginBtn, adminBanner, editBtn] = ['loginBtn', 'adminBanner', 'editBtn'].
 let projects = [];
 let categories = [];
 let categoryMap = {};
+let categoryNames = new Set();
 const fragmentProjects = new DocumentFragment();
 
 // Création des boutons de filtres
@@ -104,15 +105,14 @@ function addProjectArrayToDOM(projects) {
 
 async function createFilters() {
 	try {
-		// Création d'un tableau contenant les catégories sans doublons
-		categories = [...new Set(projects.map((project) => project.category.name))];
+		// Création d'un tableau contenant les noms de catégories sans doublons
+		categoryNames = new Set(Object.values(categoryMap));
 
 		// Création d'un bouton de filtre pour chaque catégorie
 		const filterFragment = document.createDocumentFragment();
-		categories.forEach((category) => {
-			const categoryFilterId = projects.find((project) => project.category.name === category).category.id;
-			categoryMap[category] = categoryFilterId;
-			filterFragment.appendChild(createFilterButton(category, categoryFilterId));
+		categoryNames.forEach((categoryName) => {
+			const categoryFilterId = Object.keys(categoryMap).find((key) => categoryMap[key] === categoryName);
+			filterFragment.appendChild(createFilterButton(categoryName, categoryFilterId));
 		});
 
 		// Ajout des filtres avant la galerie
@@ -279,9 +279,9 @@ function displayAddPhotoModale() {
 	try {
 		const addPhotoModale = document.querySelector('#addPhotoModale');
 		const categorySelect = addPhotoModale.querySelector('#category');
-		categories.forEach((categoryName) => {
+		Array.from(categoryNames).forEach((categoryName) => {
 			// On vérifie si l'option n'existe pas déjà
-			if (!Array.from(categorySelect.options).find((option) => String(option.value) === String(categoryName))) {
+			if (!Array.from(categorySelect.options).find((option) => option.value === categoryName)) {
 				// On crée une nouvelle option
 				const option = document.createElement('option');
 
