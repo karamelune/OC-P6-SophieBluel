@@ -1,17 +1,17 @@
-// On initialise les éléments du DOM nécessaires pour le script
+// Initialisation des éléments du DOM nécessaires pour le script
 const portfolio = document.getElementById('portfolio');
 const gallery = portfolio.querySelector('.gallery');
 const [loginBtn, adminBanner, editBtn] = ['loginBtn', 'adminBanner', 'editBtn'].map((id) =>
 	document.getElementById(id)
 );
 
-// On crée les variables nécessaires pour stocker les projets et les informations de catégories
+// Création des variables nécessaires pour stocker les projets et les informations de catégories
 let projects = [];
 let categories = [];
 let categoryMap = {};
 const fragmentProjects = new DocumentFragment();
 
-// On crée les boutons de filtres
+// Création des boutons de filtres
 const filters = document.createElement('div');
 filters.id = 'filters';
 filters.appendChild(createFilterButton('Tous', filterGallery));
@@ -46,19 +46,40 @@ async function fetchAndAddProjects() {
 	}
 }
 
-function addProjectToArray(idType, id, data) {
+function addProjectToArray(isNewProject, id, data) {
 	const { categoryId, imageUrl, title } = data;
 	const categoryName = categoryMap[categoryId];
 	const project = {
 		category: { name: categoryName, id: categoryId },
-		id: idType === 'newProjectId' ? id : data.id,
+		id: isNewProject ? id : data.id,
 		imageUrl,
 		title,
 	};
 	projects.push(project);
 }
 
+function createFigureElement(projectId, categoryId) {
+	const figure = document.createElement('figure');
+	figure.id = 'p' + projectId;
+	figure.classList.add(`category-${categoryId}`);
+	return figure;
+}
+
+function createImageElement(imageUrl, title) {
+	const img = document.createElement('img');
+	img.src = imageUrl;
+	img.alt = title;
+	return img;
+}
+
+function createFigcaptionElement(title) {
+	const figcaption = document.createElement('figcaption');
+	figcaption.textContent = title;
+	return figcaption;
+}
+
 function addProjectToDOM(project, element) {
+	console.log(project);
 	const {
 		id: projectId,
 		category: { id: categoryId },
@@ -66,43 +87,27 @@ function addProjectToDOM(project, element) {
 		title,
 	} = project;
 
-	// Vérifiez si un élément avec l'id du projet existe déjà
 	if (!document.getElementById(projectId)) {
-		const figure = document.createElement('figure');
-		figure.id = projectId; // Ajout de l'id au projet
-		figure.classList.add(`category-${categoryId}`);
-
-		const img = document.createElement('img');
-		img.src = imageUrl;
-		img.alt = title;
-		figure.appendChild(img);
-
-		const figcaption = document.createElement('figcaption');
-		figcaption.textContent = title;
-		figure.appendChild(figcaption);
-
+		const figure = createFigureElement(projectId, categoryId);
+		figure.appendChild(createImageElement(imageUrl, title));
+		figure.appendChild(createFigcaptionElement(title));
 		element.appendChild(figure);
 	}
 }
 
-function addProjectsToDOM(projects) {
+function addProjectArrayToDOM(projects) {
 	projects.forEach((project) => {
 		addProjectToDOM(project, fragmentProjects);
 	});
-
 	gallery.appendChild(fragmentProjects);
-}
-
-function addNewProjectToDOM(newProject) {
-	addProjectToDOM(newProject, gallery);
 }
 
 async function createFilters() {
 	try {
-		// Create an array of all unique categories in 'projects'
+		// Création d'un tableau contenant les catégories sans doublons
 		categories = [...new Set(projects.map((project) => project.category.name))];
 
-		// Create a filter button for each category
+		// Création d'un bouton de filtre pour chaque catégorie
 		const filterFragment = document.createDocumentFragment();
 		categories.forEach((category) => {
 			const categoryFilterId = projects.find((project) => project.category.name === category).category.id;
@@ -110,13 +115,13 @@ async function createFilters() {
 			filterFragment.appendChild(createFilterButton(category, categoryFilterId));
 		});
 
-		// Add 'filters' to the DOM element of the page
+		// Ajout des filtres avant la galerie
 		portfolio.insertBefore(filters, gallery);
 
-		// Add the filter fragment to the 'filters' div
+		// Ajout des filtres dans le DOM
 		filters.appendChild(filterFragment);
 
-		// Filter the projects to only display what matches the active filter
+		// Filtrer la galerie en fonction du bouton actif
 		filterGallery();
 	} catch (error) {
 		console.error('Error during filter creation:', error);
@@ -163,7 +168,10 @@ function filterGallery(categoryId) {
 async function main() {
 	await fetchCategories();
 	await fetchAndAddProjects();
-	addProjectsToDOM(projects);
+	projects.forEach((project) => {
+		addProjectToDOM(project, fragmentProjects);
+	});
+	gallery.appendChild(fragmentProjects);
 	createFilters(projects);
 }
 
@@ -174,10 +182,10 @@ main();
 // Récupération du token stocké
 const token = localStorage.getItem('token');
 if (token) {
-	// Changer le texte du bouton de connexion / déconnexion
+	// Changement du texte du bouton de connexion / déconnexion
 	loginBtn.textContent = 'logout';
 	loginBtn.href = '#';
-	// Ajouter un événement de clic au bouton de connexion/déconnexion
+	// Ajout d'un événement de clic au bouton de connexion/déconnexion
 	loginBtn.onclick = () => {
 		// Enlever le token du localstorage et rafraîchir la page
 		localStorage.removeItem('token');
@@ -308,6 +316,7 @@ function displayAddPhotoModale() {
 	}
 }
 
+// Supprimer un projet
 async function deleteProject(projectId) {
 	try {
 		// Envoyer une requête DELETE à l'API pour supprimer le projet
@@ -329,16 +338,27 @@ async function deleteProject(projectId) {
 		const modale = document.querySelector('#editModale');
 		const modaleGallery = modale.querySelector('#modaleGallery');
 
-		// Recherche de l'élément à supprimer
-		const figureToRemove = modaleGallery.querySelector(`[data-project-id="${projectId}"]`);
+		// Recherche de l'élément à supprimer dans la modale
+		const figureToRemoveInModale = modaleGallery.querySelector(`[data-project-id="${projectId}"]`);
 
-		// Si l'élément existe, le supprimer. Sinon, afficher une erreur
-		figureToRemove ? figureToRemove.remove() : console.error('Element à supprimer introuvable');
+		// Si l'élément existe dans la modale, le supprimer. Sinon, afficher une erreur
+		figureToRemoveInModale
+			? figureToRemoveInModale.remove()
+			: console.error('Element à supprimer introuvable dans la modale');
+
+		// Recherche de l'élément à supprimer dans la galerie principale
+		const figureToRemoveInGallery = gallery.querySelector(`#p${projectId}`);
+
+		// Si l'élément existe dans la galerie principale, le supprimer. Sinon, afficher une erreur
+		figureToRemoveInGallery
+			? figureToRemoveInGallery.remove()
+			: console.error('Element à supprimer introuvable dans la galerie principale');
 	} catch (error) {
 		console.error('Erreur lors de la suppression du projet:', error);
 	}
 }
 
+// Ajouter un projet
 document.getElementById('addPhotoForm').addEventListener('submit', function (event) {
 	event.preventDefault();
 
@@ -379,8 +399,9 @@ document.getElementById('addPhotoForm').addEventListener('submit', function (eve
 		})
 		.then((data) => {
 			const newProjectId = data.id;
-			addProjectToArray('newProjectId', newProjectId, data);
-			addNewProjectToDOM(projects[projects.length - 1]);
+			addProjectToArray(true, newProjectId, data);
+			const newProject = projects[projects.length - 1];
+			addProjectToDOM(newProject, gallery);
 			filterGallery();
 			displayEditModale();
 			event.target.reset();
@@ -395,10 +416,12 @@ document.getElementById('addPhotoForm').addEventListener('submit', function (eve
 		});
 });
 
+// Drag and drop
 formImageInput.ondragover = formImageInput.ondragenter = function (event) {
 	event.preventDefault();
 };
 
+// Afficher l'image sélectionnée
 function handleFileChange(file) {
 	const reader = new FileReader();
 	reader.onload = function (event) {
@@ -412,6 +435,7 @@ function handleFileChange(file) {
 	reader.readAsDataURL(file);
 }
 
+// Afficher l'image sélectionnée lors d'un drag and drop
 formImageInput.ondrop = function (event) {
 	event.preventDefault();
 	image.files = event.dataTransfer.files;
@@ -419,11 +443,13 @@ formImageInput.ondrop = function (event) {
 	handleFileChange(file);
 };
 
+// Afficher l'image sélectionnée lors d'un clic sur le bouton
 image.addEventListener('change', function (event) {
 	const file = event.target.files[0];
 	handleFileChange(file);
 });
 
+// Vérifier que tous les champs sont remplis avant d'activer le bouton d'envoi
 const inputs = document.querySelectorAll('#addPhotoForm input, #addPhotoForm select');
 inputs.forEach((input) => {
 	input.addEventListener('input', function () {
