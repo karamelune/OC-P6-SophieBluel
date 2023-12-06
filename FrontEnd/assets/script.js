@@ -7,9 +7,8 @@ const [loginBtn, adminBanner, editBtn] = ['loginBtn', 'adminBanner', 'editBtn'].
 
 // Création des variables nécessaires pour stocker les projets et les informations de catégories
 let projects = [];
-let categories = [];
 let categoryMap = {};
-let categoryNames = new Set();
+let categoryNames;
 const fragmentProjects = new DocumentFragment();
 
 // Création des boutons de filtres
@@ -80,7 +79,6 @@ function createFigcaptionElement(title) {
 }
 
 function addProjectToDOM(project, element) {
-	console.log(project);
 	const {
 		id: projectId,
 		category: { id: categoryId },
@@ -111,7 +109,9 @@ async function createFilters() {
 		// Création d'un bouton de filtre pour chaque catégorie
 		const filterFragment = document.createDocumentFragment();
 		categoryNames.forEach((categoryName) => {
-			const categoryFilterId = Object.keys(categoryMap).find((key) => categoryMap[key] === categoryName);
+			const categoryFilterId = Object.keys(categoryMap).find(
+				(key) => categoryMap[key] === categoryName
+			);
 			filterFragment.appendChild(createFilterButton(categoryName, categoryFilterId));
 		});
 
@@ -215,7 +215,9 @@ function displayEditModale() {
 		const editModale = document.querySelector('#editModale');
 		const modaleGallery = editModale.querySelector('#modaleGallery');
 
-		const existingImages = new Set(Array.from(modaleGallery.querySelectorAll('img')).map((img) => img.src));
+		const existingImages = new Set(
+			Array.from(modaleGallery.querySelectorAll('img')).map((img) => img.src)
+		);
 
 		// Parcourir les projets et ajouter ceux qui n'ont pas encore été ajoutés à la modale
 		projects.forEach((project) => {
@@ -234,7 +236,9 @@ function displayEditModale() {
 				trashCan.id = 'trashCan';
 				const trashCanIcon = document.createElement('i');
 				trashCanIcon.classList.add('fa-solid', 'fa-trash-can');
-				trashCan.addEventListener('click', () => deleteProject(project.id).catch(console.error));
+				trashCan.addEventListener('click', () =>
+					deleteProject(project.id).catch(console.error)
+				);
 				trashCan.appendChild(trashCanIcon);
 				figure.appendChild(trashCan);
 
@@ -274,6 +278,7 @@ function displayEditModale() {
 const formImageInput = document.querySelector('#formImageInput');
 const image = document.querySelector('#image');
 const imagePreview = document.querySelector('#imagePreview');
+const deleteImagePreview = document.querySelector('#deleteImagePreview');
 
 function displayAddPhotoModale() {
 	try {
@@ -281,7 +286,9 @@ function displayAddPhotoModale() {
 		const categorySelect = addPhotoModale.querySelector('#category');
 		Array.from(categoryNames).forEach((categoryName) => {
 			// On vérifie si l'option n'existe pas déjà
-			if (!Array.from(categorySelect.options).find((option) => option.value === categoryName)) {
+			if (
+				!Array.from(categorySelect.options).find((option) => option.value === categoryName)
+			) {
 				// On crée une nouvelle option
 				const option = document.createElement('option');
 
@@ -339,7 +346,9 @@ async function deleteProject(projectId) {
 		const modaleGallery = modale.querySelector('#modaleGallery');
 
 		// Recherche de l'élément à supprimer dans la modale
-		const figureToRemoveInModale = modaleGallery.querySelector(`[data-project-id="${projectId}"]`);
+		const figureToRemoveInModale = modaleGallery.querySelector(
+			`[data-project-id="${projectId}"]`
+		);
 
 		// Si l'élément existe dans la modale, le supprimer. Sinon, afficher une erreur
 		figureToRemoveInModale
@@ -366,11 +375,13 @@ document.getElementById('addPhotoForm').addEventListener('submit', function (eve
 	formData.append('image', document.getElementById('image').files[0]);
 	formData.append('title', document.getElementById('title').value);
 
-	// Récupérez le nom de la catégorie sélectionné
 	let selectedCategoryName = document.getElementById('category').value;
-
-	// Utilisez categoryMap pour obtenir l'ID de la catégorie correspondant au nom de la catégorie sélectionné
-	let selectedCategoryId = categoryMap[selectedCategoryName];
+	let selectedCategoryId = Object.keys(categoryMap).find(
+		(key) => categoryMap[key] === selectedCategoryName
+	);
+	if (selectedCategoryId === undefined) {
+		throw new Error(`Erreur: Catégorie "${selectedCategoryName}" non trouvée`);
+	}
 
 	// Utilisez l'ID de la catégorie obtenu pour remplir le FormData
 	formData.append('category', selectedCategoryId);
@@ -409,6 +420,7 @@ document.getElementById('addPhotoForm').addEventListener('submit', function (eve
 			Array.from(formImageInput.children).forEach((child) => {
 				child.classList.remove('hidden');
 			});
+			deleteImagePreview.classList.add('hidden');
 		})
 		.catch((error) => {
 			console.error('Erreur:', error);
@@ -416,38 +428,54 @@ document.getElementById('addPhotoForm').addEventListener('submit', function (eve
 		});
 });
 
+// Afficher l'image sélectionnée
+function handleFileChange(event) {
+	const file = event.target.files[0];
+	const fileName = file.name;
+	const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+	const maxSize = 4 * 1024 * 1024; // 4Mo en bytes
+
+	if (!allowedExtensions.exec(fileName)) {
+		alert('Veuillez sélectionner un fichier au format .jpeg, .jpg ou .png');
+		image.value = null;
+		return;
+	}
+
+	if (file.size > maxSize) {
+		alert('La taille du fichier doit être inférieure à 4Mo');
+		image.value = null;
+		return;
+	}
+
+	const reader = new FileReader();
+	reader.onload = function (event) {
+		imagePreview.src = event.target.result;
+		deleteImagePreview.classList.remove('hidden');
+	};
+	reader.readAsDataURL(file);
+}
+
+// Afficher l'image sélectionnée lors d'un changement de fichier
+image.addEventListener('change', handleFileChange);
+
+// Supprimer l'image sélectionnée
+deleteImagePreview.addEventListener('click', function () {
+	imagePreview.src = '';
+	image.value = null;
+	deleteImagePreview.classList.add('hidden');
+});
+
 // Drag and drop
 formImageInput.ondragover = formImageInput.ondragenter = function (event) {
 	event.preventDefault();
 };
 
-// Afficher l'image sélectionnée
-function handleFileChange(file) {
-	const reader = new FileReader();
-	reader.onload = function (event) {
-		imagePreview.src = event.target.result;
-		Array.from(formImageInput.children).forEach((child) => {
-			if (child.id !== 'imagePreview') {
-				child.classList.add('hidden');
-			}
-		});
-	};
-	reader.readAsDataURL(file);
-}
-
 // Afficher l'image sélectionnée lors d'un drag and drop
 formImageInput.ondrop = function (event) {
 	event.preventDefault();
-	image.files = event.dataTransfer.files;
 	const file = event.dataTransfer.files[0];
-	handleFileChange(file);
+	handleFileChange({ target: { files: [file] } });
 };
-
-// Afficher l'image sélectionnée lors d'un clic sur le bouton
-image.addEventListener('change', function (event) {
-	const file = event.target.files[0];
-	handleFileChange(file);
-});
 
 // Vérifier que tous les champs sont remplis avant d'activer le bouton d'envoi
 const inputs = document.querySelectorAll('#addPhotoForm input, #addPhotoForm select');

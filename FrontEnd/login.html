@@ -13,37 +13,39 @@
 		<link rel="stylesheet" href="./assets/style.css" />
 	</head>
 	<body>
-		<header>
-			<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-			<nav>
-				<ul>
-					<li><a href="/index.html">projets</a></li>
-					<li><a href="#contact">contact</a></li>
-					<li>login</li>
-					<li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
-				</ul>
-			</nav>
-		</header>
-		<main>
-			<section id="login">
-				<h2>Log In</h2>
-				<form action="http://localhost:5678/api/users/login" method="post">
-					<label for="email">E-mail</label>
-					<input type="email" name="email" id="email" required />
-					<label for="password">Mot de passe</label>
-					<input type="password" name="password" id="password" required />
-					<input type="submit" value="Se connecter" />
-					<a href="#">Mot de passe oublié</a>
-				</form>
-			</section>
-		</main>
-		<footer id="footer-login">
-			<nav>
-				<ul>
-					<li>Mentions Légales</li>
-				</ul>
-			</nav>
-		</footer>
-		<script src="./assets/login.js"></script>
+		<div class="main-container">
+			<header>
+				<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+				<nav>
+					<ul>
+						<li><a href="/index.html">projets</a></li>
+						<li><a href="#contact">contact</a></li>
+						<li>login</li>
+						<li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
+					</ul>
+				</nav>
+			</header>
+			<main>
+				<section id="login">
+					<h2>Log In</h2>
+					<form>
+						<label for="email">E-mail</label>
+						<input type="email" name="email" id="email" required />
+						<label for="password">Mot de passe</label>
+						<input type="password" name="password" id="password" required />
+						<input type="submit" value="Se connecter" />
+						<a href="#">Mot de passe oublié</a>
+					</form>
+				</section>
+			</main>
+			<footer id="footer-login">
+				<nav>
+					<ul>
+						<li>Mentions Légales</li>
+					</ul>
+				</nav>
+			</footer>
+			<script src="./assets/login.js"></script>
+		</div>
 	</body>
 </html>

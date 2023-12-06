@@ -151,11 +151,17 @@ a {
 }
 
 body {
-	max-width: 1140px;
-	margin: auto;
+	width: 100%;
+	margin: 0;
 	font-family: 'Work Sans';
 	font-size: 14px;
 }
+
+.main-container {
+	max-width: 1140px;
+	margin: auto;
+}
+
 header {
 	display: flex;
 	justify-content: space-between;
@@ -451,9 +457,8 @@ footer nav ul {
 }
 
 #adminBanner {
-	width: 100vw;
+	width: 100%;
 	height: 60px;
-	margin-left: calc(-1 * ((100vw - 100%) / 2));
 	align-items: center;
 	justify-content: center;
 	gap: 12px;
@@ -501,6 +506,16 @@ footer nav ul {
 	font-size: 24px;
 	margin: 20px 30px 10px 0;
 	align-self: flex-end;
+}
+
+#formImageInput .close {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	margin: 0;
+	font-size: 18px;
+	width: 12px;
+	height: 12px;
 }
 
 #editModale,
