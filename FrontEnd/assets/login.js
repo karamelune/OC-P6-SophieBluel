@@ -27,25 +27,18 @@ loginForm.addEventListener('submit', async function (event) {
 		window.location.href = '/index.html';
 	} else {
 		// Si la tentative échoue, affiche un message d'erreur
-		let errorDiv = loginForm.querySelector('.error');
-		if (!errorDiv) {
-			// Si aucun message d'erreur n'existe, en crée un nouveau
-			errorDiv = document.createElement('div');
-			errorDiv.classList.add('error');
-			// Insère le message d'erreur après le champ de mot de passe
-			passwordField.insertAdjacentElement('afterend', errorDiv);
-		}
+		let loginError = loginForm.querySelector('.error');
 
 		// Affiche un message d'erreur différent en fonction du code d'erreur
 		switch (response.status) {
 			case 401:
-				errorDiv.textContent = 'Mot de passe incorrect.';
+				loginError.textContent = 'Mot de passe incorrect.';
 				break;
 			case 404:
-				errorDiv.textContent = 'Utilisateur introuvable.';
+				loginError.textContent = 'Utilisateur introuvable.';
 				break;
 			default:
-				errorDiv.textContent = 'Erreur dans l’identifiant ou le mot de passe.';
+				loginError.textContent = 'Erreur dans l’identifiant ou le mot de passe.';
 				break;
 		}
 	}

@@ -4,6 +4,7 @@ const gallery = portfolio.querySelector('.gallery');
 const [loginBtn, adminBanner, editBtn] = ['loginBtn', 'adminBanner', 'editBtn'].map((id) =>
 	document.getElementById(id)
 );
+const photoFormError = document.querySelector('#addPhotoForm .error');
 
 // Création des variables nécessaires pour stocker les projets et les informations de catégories
 let projects = [];
@@ -430,19 +431,21 @@ document.getElementById('addPhotoForm').addEventListener('submit', function (eve
 
 // Afficher l'image sélectionnée
 function handleFileChange(event) {
+	photoFormError.textContent = '';
+
 	const file = event.target.files[0];
 	const fileName = file.name;
 	const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
 	const maxSize = 4 * 1024 * 1024; // 4Mo en bytes
 
 	if (!allowedExtensions.exec(fileName)) {
-		alert('Veuillez sélectionner un fichier au format .jpeg, .jpg ou .png');
+		photoFormError.textContent = 'Seuls les fichiers JPG, JPEG et PNG sont autorisés.';
 		image.value = null;
 		return;
 	}
 
 	if (file.size > maxSize) {
-		alert('La taille du fichier doit être inférieure à 4Mo');
+		photoFormError.textContent = 'La taille du fichier ne doit pas dépasser 4Mo.';
 		image.value = null;
 		return;
 	}

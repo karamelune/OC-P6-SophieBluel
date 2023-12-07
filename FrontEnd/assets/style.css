@@ -272,101 +272,8 @@ li:hover {
 .gallery img {
 	width: 100%;
 }
-#contact,
-#login {
-	width: 50%;
-	margin: auto;
-}
-
-#login {
-	width: 30%;
-	margin-top: 150px;
-}
-
-#contact > *,
-#login > * {
-	text-align: center;
-}
-#contact h2,
-#login h2 {
-	margin-bottom: 20px;
-}
-#contact form,
-#login form,
-.addPhotoModale-content form {
-	text-align: left;
-	margin-top: 30px;
-	display: flex;
-	flex-direction: column;
-}
-
-#login form a {
-	text-align: center;
-	text-decoration: underline;
-}
-
-#contact input,
-#login input,
-.editModale-content input,
-.addPhotoModale-content input {
-	height: 50px;
-	font-size: 1.2em;
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
-
-#contact label,
-#login label,
-.addPhotoModale-content label {
-	margin: 2em 0 1em 0;
-}
-#contact textarea {
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
-
-/* Message d'erreur login incorrect */
-#login .error {
-	color: red;
-	font-weight: 700;
-	text-align: center;
-	margin-top: 2em;
-}
-
-input[type='submit'] {
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1d6154;
-	margin: 2em auto;
-	width: 180px;
-	text-align: center;
-	border-radius: 60px;
-	cursor: pointer;
-}
-
-input[type='submit']:hover {
-	background-color: #0e2f28;
-}
-
-footer nav ul {
-	display: flex;
-	justify-content: flex-end;
-	margin: 2em;
-}
-
-#footer-login {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	width: 92%;
-}
 
 /***** ADMIN *****/
-
-.gallery img {
-	width: 100%;
-}
 
 #contact,
 #login {
@@ -427,11 +334,19 @@ footer nav ul {
 }
 
 /* Message d'erreur login incorrect */
-#login .error {
+.error {
 	color: red;
 	font-weight: 700;
 	text-align: center;
 	margin-top: 2em;
+}
+
+#addPhotoModale .error {
+	margin-top: 1.5em;
+}
+
+.error:empty {
+	display: none;
 }
 
 input[type='submit'] {
