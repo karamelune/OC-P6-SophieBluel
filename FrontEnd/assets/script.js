@@ -82,13 +82,6 @@ function addProjectToDOM(project, element) {
 	}
 }
 
-function addProjectArrayToDOM(projects) {
-	projects.forEach((project) => {
-		addProjectToDOM(project, fragmentProjects);
-	});
-	gallery.appendChild(fragmentProjects);
-}
-
 function createFilters() {
 	Object.entries(categoryMap).forEach(([categoryId, categoryName]) => {
 		const btn = document.createElement('button');
