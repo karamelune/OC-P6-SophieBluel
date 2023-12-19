@@ -491,7 +491,7 @@ footer nav ul {
 	height: auto;
 }
 
-#trashCan {
+.trashCan {
 	position: absolute;
 	display: flex;
 	justify-content: center;
@@ -505,7 +505,7 @@ footer nav ul {
 	cursor: pointer;
 }
 
-#trashCan i {
+.trashCan i {
 	color: white;
 	font-size: 11px;
 }

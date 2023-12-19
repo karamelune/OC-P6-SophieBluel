@@ -159,7 +159,7 @@ function displayAdminMode() {
 // Fonction permettant de créer une icône de corbeille pour supprimer un projet
 function createTrashCan(projectId) {
 	const trashCan = document.createElement('div');
-	trashCan.id = 'trashCan';
+	trashCan.classList = 'trashCan';
 	const trashCanIcon = document.createElement('i');
 	trashCanIcon.classList.add('fa-solid', 'fa-trash-can');
 	trashCan.addEventListener('click', () => deleteProject(projectId).catch(console.error));
